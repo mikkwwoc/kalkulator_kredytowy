@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+
+		<p:panel header="Wprowadz kwotę, liczbę lat i oprocentowanie a wyświetli ci się miesięczna rata">
+
+			<p:messages id="msg" />
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+					<p:outputLabel for="idx" value="#{txtCalc.valueAmount} [zł]:" />
+					<p:inputText id="idx" value="#{calcBB.amount}" required="true" 
+					requiredMessage="#{txtCalc.valueAmount} [zł]: #{txtCalcErr.calcParamRequired}"
+					converterMessage="#{txtCalc.valueAmount} [zł]: #{txtCalcErr.calcParamIncorrect}"/>
+					
+					<p:outputLabel for="idy" value="#{txtCalc.valueYears}" />
+					<p:inputText id="idy" value="#{calcBB.years}" required="true" 
+					requiredMessage="#{txtCalc.valueYears}: #{txtCalcErr.calcParamRequired}"
+					converterMessage="#{txtCalc.valueYears}: #{txtCalcErr.calcParamIncorrect}"/>
+					
+					<p:outputLabel for="idz" value="#{txtCalc.valuePercent} [%]:" />
+					<p:inputText id="idz" value="#{calcBB.percent}" required="true"
+					requiredMessage="#{txtCalc.valuePercent} [%]: #{txtCalcErr.calcParamRequired}"
+					converterMessage="#{txtCalc.valuePercent} [%]: #{txtCalc.valuePercent}"/>
+					
+				
+					<p:commandButton value="#{txtCalc.calc}" action="#{calcBB.calc_AJAX()}" update="msg">
+						<f:ajax execute="@form" render="msg" />
+					</p:commandButton>
+					
+					
+				</h:panelGrid>
+
+				<p:commandLink value="Informacje" action="#{calcBB.info()}" />
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+</html>
